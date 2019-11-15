@@ -59,11 +59,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       try {
         if (_isLoginForm) {
           userId = await widget.auth.signIn(_email, _password);
-          if(userId == null){
+          if (userId == null) {
             setState(() {
               _errorMessage = "Vérifiez votre mail";
             });
-
           }
           print('Signed in: $userId');
         } else {
@@ -134,17 +133,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   }
 
   Widget _showCircularProgress() {
-    if (_isLoading) {
-      return Center(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
-    return Container(
-      height: 0.0,
-      width: 0.0,
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 
@@ -308,7 +301,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 
-
   Widget _buildPhoneField() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
@@ -352,14 +344,14 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           ),
         ),
         validator: (String value) {
-
           var bytes = utf8.encode(value);
           var digest = crypto.sha256.convert(bytes);
 
           if (value.isEmpty) {
             return 'Un code est requis pour créer un compte pro';
           }
-          if (digest.toString() != 'd54123de468bd42ea00dafbd777f85fe5fa1ff6404d9838c007953c25c92a1c5') {
+          if (digest.toString() !=
+              'd54123de468bd42ea00dafbd777f85fe5fa1ff6404d9838c007953c25c92a1c5') {
             print(digest);
             return 'Code invalide';
           }
@@ -457,12 +449,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         appBar: new AppBar(
           title: new Text('Bloon Pro'),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              _showForm(),
-            ],
-          ),
-        ));
+        body: _showForm());
   }
 }
