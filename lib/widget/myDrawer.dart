@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:bloon_pro/main.dart';
 import 'package:bloon_pro/services/crud.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyDrawer extends StatefulWidget {
   MyDrawer({@required this.currentPage, this.userId});
@@ -167,7 +168,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 : BoxDecoration(),
             child: ListTile(
               leading: Icon(
-                Icons.assignment_turned_in,
+                FontAwesomeIcons.solidUserCircle,
                 color: currentDrawer == 1
                     ? Theme.of(context).primaryColor
                     : Colors.grey,
@@ -185,6 +186,36 @@ class _MyDrawerState extends State<MyDrawer> {
                 Provider.of<DrawerStateInfo>(context).setCurrentDrawer(1);
 
                 Navigator.pushReplacementNamed(context, "/adminProfil");
+              },
+            ),
+          ),
+
+          Container(
+            decoration: currentDrawer == 2
+                ? BoxDecoration(
+                color: Color(0xFFebdffc),
+                borderRadius: BorderRadius.circular(15.0))
+                : BoxDecoration(),
+            child: ListTile(
+              leading: Icon(
+                FontAwesomeIcons.glassCheers,
+                color: currentDrawer == 2
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey,
+              ),
+              title: Text(
+                "Mes Clubs",
+                style: currentDrawer == 2
+                    ? TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Theme.of(context).primaryColor)
+                    : TextStyle(fontWeight: FontWeight.normal, fontSize: 18.0),
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                if (widget.currentPage == "myclubs") return;
+
+                Provider.of<DrawerStateInfo>(context).setCurrentDrawer(2);
+
+                Navigator.pushReplacementNamed(context, "/myClubs");
               },
             ),
           ),

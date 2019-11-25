@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'adminProfile.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'myClubs.dart';
 
 void main() {
   runApp(new MyApp());
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
       ),
         routes: {
           '/': (BuildContext context) => new RootPage(auth: new Auth()),
-          '/adminProfil' : (BuildContext context) => AdminProfil()
+          '/adminProfil' : (BuildContext context) => AdminProfil(),
+          '/myClubs' : (BuildContext context) => MyClubs(),
         },
       ),
       providers: <SingleChildCloneableWidget>[
