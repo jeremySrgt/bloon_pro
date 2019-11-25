@@ -32,22 +32,19 @@ class _MyClubsState extends State<MyClubs> {
 
       List<Map<dynamic, dynamic>> tempList = [];
       for (int i = 0; i < _clubList.length; i++) {
+        //peut etre qu'il fautdrait utiliser le refreshcontroller.toidle() pour pas avoir de setState et se servir de l'animation de chargement asynchrone
         setState(() {
           _isLoading = true;
         });
-        print("DANS LE FOR");
         crudObj.getDataFromClubFromDocumentWithID(_clubList[i]).then((value) {
-          print("DANS LE GET DATA DE $i");
           Map<String, dynamic> map = value.data;
+          map["clubId"] = _clubList[i];
           tempList.add(map);
           setState(() {
             _isLoading= false;
           });
         });
       }
-
-      print("TEMPLIST PUTAIN----");
-      print(tempList);
 
       setState(() {
         _clubsData = tempList;
@@ -69,10 +66,9 @@ class _MyClubsState extends State<MyClubs> {
         setState(() {
           _isLoading = true;
         });
-        print("DANS LE FOR");
         crudObj.getDataFromClubFromDocumentWithID(_clubList[i]).then((value) {
-          print("DANS LE GET DATA DE $i");
           Map<String, dynamic> map = value.data;
+          map["clubId"] = _clubList[i];
           tempList.add(map);
           setState(() {
             _isLoading = false;
@@ -80,15 +76,10 @@ class _MyClubsState extends State<MyClubs> {
         });
       }
 
-      print("TEMPLIST PUTAIN------");
-      print(tempList);
       setState(() {
         _clubsData = tempList;
-        _isLoading = false;
       });
 
-      print("CLUB DATA");
-      print(_clubsData);
 
       _refreshController.loadComplete();
     });
@@ -100,7 +91,7 @@ class _MyClubsState extends State<MyClubs> {
       trailing: Icon(FontAwesomeIcons.arrowCircleRight),
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ManageClub()));
+            context, MaterialPageRoute(builder: (context) => ManageClub(clubId: _clubsData[index]['clubId'], clubName : _clubsData[index]['name'] )));
       },
     );
   }
@@ -120,7 +111,7 @@ class _MyClubsState extends State<MyClubs> {
           onLoading: _onLoading,
           onRefresh: _refresh,
           child: _isLoading
-              ? Text("ca charge")
+              ? Container()
               : ListView.builder(
                   itemCount: _clubList.length,
                   itemBuilder: (context, index) {

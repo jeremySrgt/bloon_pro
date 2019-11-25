@@ -98,6 +98,13 @@ class CrudMethods {
 
   }
 
+
+  updateCLubDataWithId(Map<String, dynamic> clubDataMap, clubId) async{
+    DocumentReference ref = Firestore.instance.collection('club').document(clubId);
+    return ref.setData(clubDataMap, merge: true);
+
+  }
+
 //  deleteData(collection, docId) {
 //    Firestore.instance
 //        .collection(collection)
