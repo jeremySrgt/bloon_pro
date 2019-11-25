@@ -20,7 +20,7 @@ class _SelectProfilPictureState extends State<SelectProfilPicture> {
 
   updateProfilPicture(picUrl) {
     Map<String, dynamic> userMap = {'picture': picUrl};
-    crudObj.createOrUpdateUserData(userMap);
+    crudObj.createOrUpdateAdminData(userMap);
   }
 
   Future getImageFromGallery() async {
@@ -97,7 +97,7 @@ class _SelectProfilPictureState extends State<SelectProfilPicture> {
                 Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: newProfilPic == null
-                      ? Text('sélectionne une image')
+                      ? Text('sélectionnez une image')
                       : enableUpload(),
                 )
               ],
