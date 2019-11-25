@@ -127,49 +127,66 @@ class _MyDrawerState extends State<MyDrawer> {
       child: ListView(
         children: <Widget>[
           _createHeader(),
-          ListTile(
-            leading: Icon(
-              Icons.home,
-              color: currentDrawer == 0
-                  ? Theme.of(context).primaryColor
-                  : Colors.grey,
-            ),
-            title: Text(
-              "Accueil",
-              style: currentDrawer == 0
-                  ? TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)
-                  : TextStyle(fontWeight: FontWeight.normal, fontSize: 18.0),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              if (widget.currentPage == "home") return;
+          Container(
+            decoration: currentDrawer == 0
+                ? BoxDecoration(
+                    color: Color(0xFFebdffc),
+                    borderRadius: BorderRadius.circular(15.0))
+                : BoxDecoration(),
+            child: ListTile(
+              leading: Icon(
+                Icons.home,
+                color: currentDrawer == 0
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey,
+              ),
+              title: Text(
+                "Accueil",
+                style: currentDrawer == 0
+                    ? TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Theme.of(context).primaryColor)
+                    : TextStyle(fontWeight: FontWeight.normal, fontSize: 18.0),
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                if (widget.currentPage == "home") return;
 
-              Provider.of<DrawerStateInfo>(context).setCurrentDrawer(0);
+                Provider.of<DrawerStateInfo>(context).setCurrentDrawer(0);
 
-              Navigator.pushReplacementNamed(context, "/");
-            },
+                Navigator.pushReplacementNamed(context, "/");
+              },
+            ),
           ),
-          ListTile(
-            leading: Icon(
-              Icons.assignment_turned_in,
-              color: currentDrawer == 1
-                  ? Theme.of(context).primaryColor
-                  : Colors.grey,
-            ),
-            title: Text(
-              "Profil",
-              style: currentDrawer == 1
-                  ? TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)
-                  : TextStyle(fontWeight: FontWeight.normal, fontSize: 18.0),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              if (widget.currentPage == "adminProfil") return;
+          Container(
+            decoration: currentDrawer == 1
+                ? BoxDecoration(
+                    color: Color(0xFFebdffc),
+                    borderRadius: BorderRadius.circular(15.0))
+                : BoxDecoration(),
+            child: ListTile(
+              leading: Icon(
+                Icons.assignment_turned_in,
+                color: currentDrawer == 1
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey,
+              ),
+              title: Text(
+                "Profil",
+                style: currentDrawer == 1
+                    ? TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Theme.of(context).primaryColor)
+                    : TextStyle(fontWeight: FontWeight.normal, fontSize: 18.0),
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                if (widget.currentPage == "adminProfil") return;
 
-              Provider.of<DrawerStateInfo>(context).setCurrentDrawer(1);
+                Provider.of<DrawerStateInfo>(context).setCurrentDrawer(1);
 
-              Navigator.pushReplacementNamed(context, "/adminProfil");
-            },
+                Navigator.pushReplacementNamed(context, "/adminProfil");
+              },
+            ),
           ),
         ],
       ),
