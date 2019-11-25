@@ -87,6 +87,11 @@ class CrudMethods {
 
   }
 
+  getAdminClubs() async{
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    return await Firestore.instance.collection('AdminBoite').document(user.uid).collection('myClubs').getDocuments();
+  }
+
   updateUserDataWithUserID(userID, Map<String, dynamic> userDataMap) async{
     DocumentReference ref = Firestore.instance.collection('user').document(userID);
     return ref.setData(userDataMap, merge: true);
