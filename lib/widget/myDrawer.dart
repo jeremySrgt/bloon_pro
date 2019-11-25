@@ -92,7 +92,7 @@ class _MyDrawerState extends State<MyDrawer> {
         ListTile(
           leading: CircleAvatar(
             // photo de profil
-            backgroundColor: Colors.black54,
+            backgroundImage: NetworkImage(dataMap['picture']),
             minRadius: 25,
             maxRadius: 25,
           ),
