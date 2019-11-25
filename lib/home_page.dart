@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bloon_pro/authentification/auth.dart';
-
-
+import 'package:bloon_pro/widget/myDrawer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.auth, this.userId, this.logoutCallback})
@@ -18,8 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   signOut() async {
     try {
       await widget.auth.signOut();
@@ -36,12 +34,15 @@ class _HomePageState extends State<HomePage> {
         title: new Text('Flutter login demo'),
         actions: <Widget>[
           new FlatButton(
-              child: new Text('Logout',
-                  style: new TextStyle(fontSize: 17.0, color: Colors.white)),
-              onPressed: signOut)
+            child: Icon(FontAwesomeIcons.signOutAlt, color: Colors.white,),
+            onPressed: signOut,
+          )
         ],
       ),
-      body: Center(child: Text("hello bloon pro"),),
+      drawer: MyDrawer(currentPage: 'home', userId: null),
+      body: Center(
+        child: Text("hello bloon pro"),
+      ),
     );
   }
 }
