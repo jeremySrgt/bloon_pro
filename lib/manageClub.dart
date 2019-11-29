@@ -18,7 +18,7 @@ class ManageClub extends StatefulWidget {
 class _ManageClubState extends State<ManageClub> {
   CrudMethods crudObj = new CrudMethods();
   final _formKey = GlobalKey<FormState>();
-
+  final _placeFormKey = GlobalKey<FormState>();
 
   Widget _clubNameField(clubData) {
     return ListTile(
@@ -49,7 +49,8 @@ class _ManageClubState extends State<ManageClub> {
                         Padding(
                           padding: EdgeInsets.all(8.0),
                           child: TextFormField(
-                            decoration: InputDecoration(hintText: 'Nom de la boite'),
+                            decoration:
+                                InputDecoration(hintText: 'Nom de la boite'),
                             onSaved: (value) => _name = value.trim(),
                           ),
                         ),
@@ -67,7 +68,8 @@ class _ManageClubState extends State<ManageClub> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
-                                crudObj.updateCLubDataWithId({'name': _name}, widget.clubId);
+                                crudObj.updateCLubDataWithId(
+                                    {'name': _name}, widget.clubId);
                                 Navigator.pop(context);
                               }
                             },
@@ -128,7 +130,7 @@ class _ManageClubState extends State<ManageClub> {
                             color: Theme.of(context).accentColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0))),
+                                    BorderRadius.all(Radius.circular(20.0))),
                             child: Text(
                               "Valider",
                               style: TextStyle(color: Colors.white),
@@ -136,7 +138,8 @@ class _ManageClubState extends State<ManageClub> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
-                                crudObj.updateCLubDataWithId({'adress': _adress}, widget.clubId);
+                                crudObj.updateCLubDataWithId(
+                                    {'adress': _adress}, widget.clubId);
                                 Navigator.pop(context);
                               }
                             },
@@ -158,7 +161,6 @@ class _ManageClubState extends State<ManageClub> {
     );
   }
 
-
   String validatePhone(String value) {
     if (value.length != 10)
       return 'Veuillez entrer un numéro valide';
@@ -167,7 +169,6 @@ class _ManageClubState extends State<ManageClub> {
   }
 
   Widget _clubPhoneField(clubData) {
-
     return ListTile(
       leading: Icon(
         FontAwesomeIcons.phone,
@@ -208,7 +209,7 @@ class _ManageClubState extends State<ManageClub> {
                             color: Theme.of(context).accentColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0))),
+                                    BorderRadius.all(Radius.circular(20.0))),
                             child: Text(
                               "Valider",
                               style: TextStyle(color: Colors.white),
@@ -216,7 +217,8 @@ class _ManageClubState extends State<ManageClub> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
-                                crudObj.updateCLubDataWithId({'phone': _phone}, widget.clubId);
+                                crudObj.updateCLubDataWithId(
+                                    {'phone': _phone}, widget.clubId);
                                 Navigator.pop(context);
                               }
                             },
@@ -238,9 +240,7 @@ class _ManageClubState extends State<ManageClub> {
     );
   }
 
-
   Widget _clubSiteUrlField(clubData) {
-
     return ListTile(
       leading: Icon(
         FontAwesomeIcons.sitemap,
@@ -279,7 +279,7 @@ class _ManageClubState extends State<ManageClub> {
                             color: Theme.of(context).accentColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20.0))),
+                                    BorderRadius.all(Radius.circular(20.0))),
                             child: Text(
                               "Valider",
                               style: TextStyle(color: Colors.white),
@@ -287,7 +287,8 @@ class _ManageClubState extends State<ManageClub> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
-                                crudObj.updateCLubDataWithId({'siteUrl': _site}, widget.clubId);
+                                crudObj.updateCLubDataWithId(
+                                    {'siteUrl': _site}, widget.clubId);
                                 Navigator.pop(context);
                               }
                             },
@@ -309,7 +310,6 @@ class _ManageClubState extends State<ManageClub> {
     );
   }
 
-
   Widget _pageConstruct(clubData) {
     return SingleChildScrollView(
       child: Column(
@@ -320,6 +320,65 @@ class _ManageClubState extends State<ManageClub> {
           _clubSiteUrlField(clubData)
         ],
       ),
+    );
+  }
+
+  String validatePlaceForm(String value) {
+    if (value.length == 0)
+      return 'Veuillez saisir une valeur';
+    else
+      return null;
+  }
+
+  int _placesPrice;
+  int _numberOfPlaces;
+
+  void addPlaceToClub(numberOfPlace, placePrice) async{
+    Map<String, dynamic> placeInfo = {"price": _placesPrice};
+    for(int i = 0; i<numberOfPlace; i++){
+      print("dans le for $i");
+      Firestore.instance.collection('club').document(widget.clubId).collection('placesDispo').add(placeInfo);
+    }
+  }
+
+  Widget _showAddPlacesToClub() {
+    return Column(
+      children: <Widget>[
+        Form(
+          key: _placeFormKey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                validator: validatePlaceForm,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(hintText: 'Nombre de places'),
+                onSaved: (value) => _numberOfPlaces = int.parse(value),
+              ),
+              TextFormField(
+                validator: validatePlaceForm,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(hintText: 'Prix unitaire'),
+                onSaved: (value) => _placesPrice = int.parse(value),
+              ),
+            ],
+          ),
+        ),
+        RaisedButton(
+          color: Theme.of(context).accentColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          child: Text(
+            "Valider les places",
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () {
+            if (_placeFormKey.currentState.validate()) {
+              _placeFormKey.currentState.save();
+              addPlaceToClub(_numberOfPlaces, _placesPrice);
+            }
+          },
+        ),
+      ],
     );
   }
 
@@ -340,7 +399,12 @@ class _ManageClubState extends State<ManageClub> {
             }
 
             var clubData = snapshot.data;
-            return _pageConstruct(clubData);
+            return Column(
+              children: <Widget>[
+                _pageConstruct(clubData),
+                _showAddPlacesToClub()
+              ],
+            );
           },
         ));
   }
