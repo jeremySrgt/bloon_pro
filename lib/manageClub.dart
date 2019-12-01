@@ -313,15 +313,13 @@ class _ManageClubState extends State<ManageClub> {
   }
 
   Widget _pageConstruct(clubData) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          _clubNameField(clubData),
-          _clubAdressField(clubData),
-          _clubPhoneField(clubData),
-          _clubSiteUrlField(clubData)
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        _clubNameField(clubData),
+        _clubAdressField(clubData),
+        _clubPhoneField(clubData),
+        _clubSiteUrlField(clubData)
+      ],
     );
   }
 
@@ -350,8 +348,7 @@ class _ManageClubState extends State<ManageClub> {
           .add(placeInfo);
     }
 
-    Future.delayed(const Duration(seconds: 2),(){
-
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isLoading = false;
       });
@@ -359,49 +356,101 @@ class _ManageClubState extends State<ManageClub> {
   }
 
   Widget _showAddPlacesToClub() {
-    return Column(
-      children: <Widget>[
-        Form(
-          key: _placeFormKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                validator: validatePlaceForm,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(hintText: 'Nombre de places'),
-                onSaved: (value) => _numberOfPlaces = int.parse(value),
-              ),
-              TextFormField(
-                validator: validatePlaceForm,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(hintText: 'Prix unitaire'),
-                onSaved: (value) => _placesPrice = int.parse(value),
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15.0, 25.0, 15.0, 0.0),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Ajouter des places",
+            style: TextStyle(fontSize: 22.0),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 15.0),
-          child: _isLoading
-              ? CircularProgressIndicator()
-              : RaisedButton(
-                  color: Theme.of(context).accentColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  child: Text(
-                    "Valider les places",
-                    style: TextStyle(color: Colors.white),
+          Form(
+            key: _placeFormKey,
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  validator: validatePlaceForm,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Nombre de places',
+                    icon: new Icon(
+                      FontAwesomeIcons.ticketAlt,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
-                  onPressed: () {
-                    if (_placeFormKey.currentState.validate()) {
-                      _placeFormKey.currentState.save();
-                      addPlaceToClub(_numberOfPlaces, _placesPrice);
-                      _placeFormKey.currentState.reset();
-                    }
-                  },
+                  onSaved: (value) => _numberOfPlaces = int.parse(value),
                 ),
-        ),
-      ],
+                TextFormField(
+                  validator: validatePlaceForm,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Prix unitaire',
+                    icon: new Icon(
+                      FontAwesomeIcons.euroSign,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  onSaved: (value) => _placesPrice = int.parse(value),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0,15.0,0.0,10.0),
+            child: _isLoading
+                ? CircularProgressIndicator()
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      ButtonTheme(
+                        minWidth: 140.0,
+                        child: RaisedButton.icon(
+                          color: Colors.red[200],
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
+                          label: Text(
+                            "Annuler",
+                            style: TextStyle(color: Colors.red[900]),
+                          ),
+                          icon: Icon(
+                            FontAwesomeIcons.times,
+                            color: Colors.red[900],
+                          ),
+                          onPressed: () {
+                            _placeFormKey.currentState.reset();
+                          },
+                        ),
+                      ),
+                      ButtonTheme(
+                        minWidth: 140.0,
+                        child: RaisedButton.icon(
+                          color: Colors.deepPurpleAccent[100],
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
+                          label: Text(
+                            "Valider",
+                            style: TextStyle(color: Colors.deepPurple[800]),
+                          ),
+                          icon: Icon(
+                            FontAwesomeIcons.check,
+                            color: Colors.deepPurple[800],
+                          ),
+                          onPressed: () {
+                            if (_placeFormKey.currentState.validate()) {
+                              _placeFormKey.currentState.save();
+                              addPlaceToClub(_numberOfPlaces, _placesPrice);
+                              _placeFormKey.currentState.reset();
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -422,11 +471,13 @@ class _ManageClubState extends State<ManageClub> {
             }
 
             var clubData = snapshot.data;
-            return Column(
-              children: <Widget>[
-                _pageConstruct(clubData),
-                _showAddPlacesToClub()
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  _pageConstruct(clubData),
+                  _showAddPlacesToClub()
+                ],
+              ),
             );
           },
         ));
