@@ -20,6 +20,8 @@ class _ManageClubState extends State<ManageClub> {
   final _formKey = GlobalKey<FormState>();
   final _placeFormKey = GlobalKey<FormState>();
 
+  bool _isLoading = false;
+
   Widget _clubNameField(clubData) {
     return ListTile(
       leading: Icon(
@@ -333,12 +335,27 @@ class _ManageClubState extends State<ManageClub> {
   int _placesPrice;
   int _numberOfPlaces;
 
-  void addPlaceToClub(numberOfPlace, placePrice) async{
+  void addPlaceToClub(numberOfPlace, placePrice) async {
+    setState(() {
+      _isLoading = true;
+    });
+
     Map<String, dynamic> placeInfo = {"price": _placesPrice};
-    for(int i = 0; i<numberOfPlace; i++){
+    for (int i = 0; i < numberOfPlace; i++) {
       print("dans le for $i");
-      Firestore.instance.collection('club').document(widget.clubId).collection('placesDispo').add(placeInfo);
+      Firestore.instance
+          .collection('club')
+          .document(widget.clubId)
+          .collection('placesDispo')
+          .add(placeInfo);
     }
+
+    Future.delayed(const Duration(seconds: 2),(){
+
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   Widget _showAddPlacesToClub() {
@@ -363,20 +380,26 @@ class _ManageClubState extends State<ManageClub> {
             ],
           ),
         ),
-        RaisedButton(
-          color: Theme.of(context).accentColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          child: Text(
-            "Valider les places",
-            style: TextStyle(color: Colors.white),
-          ),
-          onPressed: () {
-            if (_placeFormKey.currentState.validate()) {
-              _placeFormKey.currentState.save();
-              addPlaceToClub(_numberOfPlaces, _placesPrice);
-            }
-          },
+        Padding(
+          padding: const EdgeInsets.only(top: 15.0),
+          child: _isLoading
+              ? CircularProgressIndicator()
+              : RaisedButton(
+                  color: Theme.of(context).accentColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  child: Text(
+                    "Valider les places",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    if (_placeFormKey.currentState.validate()) {
+                      _placeFormKey.currentState.save();
+                      addPlaceToClub(_numberOfPlaces, _placesPrice);
+                      _placeFormKey.currentState.reset();
+                    }
+                  },
+                ),
         ),
       ],
     );
