@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:bloon_pro/authentification/auth.dart';
 import 'package:bloon_pro/widget/myDrawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'graphs/test.dart';
+import 'graphs/bar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.auth, this.userId, this.logoutCallback})
@@ -27,11 +29,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: new Text('Flutter login demo'),
+        title: new Text('Bloon Pro'),
         actions: <Widget>[
           new FlatButton(
             child: Icon(FontAwesomeIcons.signOutAlt, color: Colors.white,),
@@ -40,9 +44,18 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: MyDrawer(currentPage: 'home', userId: null),
-      body: Center(
-        child: Text("hello bloon pro"),
-      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Text("Comment se porte votre club ?"),
+              Text("Nombre d'entrés cette semaine"),
+              BarChartSample3(),
+            ],
+          ),
+        ),
+      )
     );
   }
 }
+

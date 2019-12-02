@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       child: MaterialApp(
-        title: 'Flutter login demo',
+        title: 'Bloon Pro',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
         primaryColor: primaryColor,

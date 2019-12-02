@@ -32,7 +32,7 @@ class _MyClubsState extends State<MyClubs> {
 
       List<Map<dynamic, dynamic>> tempList = [];
       for (int i = 0; i < _clubList.length; i++) {
-        //peut etre qu'il fautdrait utiliser le refreshcontroller.toidle() pour pas avoir de setState et se servir de l'animation de chargement asynchrone
+        //peut etre qu'il faudrait utiliser le refreshcontroller.toidle() pour pas avoir de setState et se servir de l'animation de chargement asynchrone
         setState(() {
           _isLoading = true;
         });
