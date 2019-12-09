@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         title: new Text('Bloon Pro'),
         actions: <Widget>[
           new FlatButton(
-            child: Icon(FontAwesomeIcons.signOutAlt, color: Colors.white,),
+            child: Icon(FontAwesomeIcons.signOutAlt, color: Colors.white, size: 20.0,),
             onPressed: signOut,
           )
         ],
