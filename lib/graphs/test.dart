@@ -8,8 +8,8 @@ class LineChartSample2 extends StatefulWidget {
 
 class _LineChartSample2State extends State<LineChartSample2> {
   List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
+    Colors.deepPurple,
+    Colors.pink,
   ];
 
   bool showAvg = false;
@@ -25,7 +25,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(18),
                 ),
-                color: const Color(0xff232d37)),
+                color: Colors.transparent),
             child: Padding(
               padding: const EdgeInsets.only(
                   right: 18.0, left: 12.0, top: 24, bottom: 12),
@@ -36,7 +36,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
           ),
         ),
         SizedBox(
-          width: 60,
+          width: 80,
           height: 34,
           child: FlatButton(
             onPressed: () {
@@ -45,11 +45,11 @@ class _LineChartSample2State extends State<LineChartSample2> {
               });
             },
             child: Text(
-              'avg',
+              'moy',
               style: TextStyle(
                   fontSize: 12,
                   color:
-                  showAvg ? Colors.white.withOpacity(0.5) : Colors.white),
+                  showAvg ? Colors.black.withOpacity(0.5) : Colors.black),
             ),
           ),
         ),
@@ -61,16 +61,16 @@ class _LineChartSample2State extends State<LineChartSample2> {
     return LineChartData(
       gridData: FlGridData(
         show: true,
-        drawVerticalGrid: true,
+        drawVerticalGrid: false,
         getDrawingHorizontalGridLine: (value) {
           return const FlLine(
-            color: Color(0xff37434d),
+            color: Colors.grey,
             strokeWidth: 1,
           );
         },
         getDrawingVerticalGridLine: (value) {
           return const FlLine(
-            color: Color(0xff37434d),
+            color: Colors.grey,
             strokeWidth: 1,
           );
         },
@@ -87,11 +87,11 @@ class _LineChartSample2State extends State<LineChartSample2> {
           getTitles: (value) {
             switch (value.toInt()) {
               case 2:
-                return 'MAR';
+                return 'FEV';
               case 5:
-                return 'JUN';
+                return 'MAR';
               case 8:
-                return 'SEP';
+                return 'AVR';
             }
             return '';
           },
@@ -121,7 +121,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
       ),
       borderData: FlBorderData(
           show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
+          border: Border.all(color: Colors.grey, width: 1)),
       minX: 0,
       maxX: 11,
       minY: 0,
@@ -162,13 +162,13 @@ class _LineChartSample2State extends State<LineChartSample2> {
         drawHorizontalGrid: true,
         getDrawingVerticalGridLine: (value) {
           return const FlLine(
-            color: Color(0xff37434d),
+            color: Colors.grey,
             strokeWidth: 1,
           );
         },
         getDrawingHorizontalGridLine: (value) {
           return const FlLine(
-            color: Color(0xff37434d),
+            color: Colors.grey,
             strokeWidth: 1,
           );
         },
@@ -185,11 +185,11 @@ class _LineChartSample2State extends State<LineChartSample2> {
           getTitles: (value) {
             switch (value.toInt()) {
               case 2:
-                return 'MAR';
+                return 'FEV';
               case 5:
-                return 'JUN';
+                return 'MAR';
               case 8:
-                return 'SEP';
+                return 'AVR';
             }
             return '';
           },
@@ -219,7 +219,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
       ),
       borderData: FlBorderData(
           show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
+          border: Border.all(color: Colors.grey, width: 1)),
       minX: 0,
       maxX: 11,
       minY: 0,

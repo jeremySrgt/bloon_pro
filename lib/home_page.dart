@@ -20,6 +20,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Colors.pink, Colors.deepPurple],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+
   signOut() async {
     try {
       await widget.auth.signOut();
@@ -48,9 +54,23 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           child: Column(
             children: <Widget>[
-              Text("Comment se porte votre club ?"),
-              Text("Nombre d'entrés cette semaine"),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text("Comment se porte votre club ?", style: TextStyle(
+                    fontSize: 20.0,
+                    foreground: Paint()..shader = linearGradient),),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0,10.0,0.0,25.0),
+                child: Text("Nombre d'entrés cette semaine"),
+              ),
               BarChartSample3(),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0,20.0,0.0,25.0),
+                child: Text("Vos revenues estimés"),
+              ),
+
+              LineChartSample2(),
             ],
           ),
         ),

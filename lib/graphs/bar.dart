@@ -18,7 +18,7 @@ class BarChartSample3State extends State<BarChartSample3> {
         child: BarChart(
           BarChartData(
               alignment: BarChartAlignment.spaceAround,
-              maxY: 20,
+              maxY: 500,
               barTouchData: BarTouchData(
                 enabled: false,
                 touchTooltipData: BarTouchTooltipData(
@@ -51,19 +51,19 @@ class BarChartSample3State extends State<BarChartSample3> {
                   getTitles: (double value) {
                     switch (value.toInt()) {
                       case 0:
-                        return 'Lundi';
+                        return 'Lun';
                       case 1:
-                        return 'Mardi';
+                        return 'Mar';
                       case 2:
-                        return 'Mercredi';
+                        return 'Mer';
                       case 3:
-                        return 'Jeudi';
+                        return 'Jeu';
                       case 4:
-                        return 'Vendredi';
+                        return 'Ven';
                       case 5:
-                        return 'Samedi';
+                        return 'Sam';
                       case 6:
-                        return 'Dimanche';
+                        return 'Dim';
                       default:
                         return '';
                     }
@@ -77,27 +77,31 @@ class BarChartSample3State extends State<BarChartSample3> {
               barGroups: [
                 BarChartGroupData(
                     x: 0,
-                    barRods: [BarChartRodData(y: 9, color: Colors.lightBlueAccent)],
+                    barRods: [BarChartRodData(y: 160, color: Colors.lightBlueAccent)],
                     showingTooltipIndicators: [0]),
                 BarChartGroupData(
                     x: 1,
-                    barRods: [BarChartRodData(y: 12, color: Colors.lightBlueAccent)],
+                    barRods: [BarChartRodData(y: 255, color: Colors.lightBlueAccent)],
                     showingTooltipIndicators: [0]),
                 BarChartGroupData(
                     x: 2,
-                    barRods: [BarChartRodData(y: 6, color: Colors.lightBlueAccent)],
+                    barRods: [BarChartRodData(y: 401, color: Colors.lightBlueAccent)],
                     showingTooltipIndicators: [0]),
                 BarChartGroupData(
                     x: 3,
-                    barRods: [BarChartRodData(y: 13, color: Colors.lightBlueAccent)],
+                    barRods: [BarChartRodData(y: 123, color: Colors.lightBlueAccent)],
                     showingTooltipIndicators: [0]),
                 BarChartGroupData(
                     x: 3,
-                    barRods: [BarChartRodData(y: 12, color: Colors.lightBlueAccent)],
+                    barRods: [BarChartRodData(y: 430, color: Colors.lightBlueAccent)],
                     showingTooltipIndicators: [0]),
                 BarChartGroupData(
                     x: 3,
-                    barRods: [BarChartRodData(y: 3, color: Colors.lightBlueAccent)],
+                    barRods: [BarChartRodData(y: 480, color: Colors.lightBlueAccent)],
+                    showingTooltipIndicators: [0]),
+                BarChartGroupData(
+                    x: 3,
+                    barRods: [BarChartRodData(y: 90, color: Colors.lightBlueAccent)],
                     showingTooltipIndicators: [0]),
               ]),
         ),
