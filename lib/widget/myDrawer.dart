@@ -244,7 +244,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
                 Provider.of<DrawerStateInfo>(context).setCurrentDrawer(3);
 
-                Navigator.pushReplacementNamed(context, "/scannerQrCode");
+                Navigator.pushReplacementNamed(context, "/clubToScan");
               },
             ),
           ),

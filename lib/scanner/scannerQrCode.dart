@@ -4,10 +4,12 @@ import 'package:bloon_pro/widget/myDrawer.dart';
 import 'package:bloon_pro/authentification/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() => runApp(MaterialApp(home: ScannerQrCode()));
-
 class ScannerQrCode extends StatefulWidget {
-  ScannerQrCode({this.onSignOut});
+  ScannerQrCode(
+      {this.onSignOut, @required this.clubId, @required this.clubName});
+
+  final String clubId;
+  final String clubName;
 
   final VoidCallback onSignOut;
 
@@ -31,9 +33,7 @@ class _ScannerQrCode extends State<ScannerQrCode> {
   String userId = 'userId';
   bool _default = false;
   List<dynamic> _listePlace;
-  String testQrCode = "cSWrs7G9GUXvH9q8jlqH";
   bool _qrEquals = false;
-  bool _alreadyScan = false;
   bool _isScanning = false;
 
   @override
@@ -42,7 +42,7 @@ class _ScannerQrCode extends State<ScannerQrCode> {
 
     Firestore.instance
         .collection('club')
-        .document('-LhKMefcBQ5wcJwluZxY')
+        .document(widget.clubId)
         .collection('placesReservees')
         .getDocuments()
         .then((value) {
@@ -51,10 +51,10 @@ class _ScannerQrCode extends State<ScannerQrCode> {
       });
     });
   }
-  Map<dynamic, dynamic>_maptest = {};
+
+  Map<dynamic, dynamic> _maptest = {};
 
   _qrCallback(String code) {
-
     test(code);
     print(_maptest);
     setState(() {
@@ -86,13 +86,13 @@ class _ScannerQrCode extends State<ScannerQrCode> {
     }*/
   }
 
-  test(code){
+  test(code) {
     setState(() {
       _isScanning = true;
     });
     Firestore.instance
         .collection('club')
-        .document('-LhKMefcBQ5wcJwluZxY')
+        .document(widget.clubId)
         .collection('placesReservees')
         .getDocuments()
         .then((value) {
@@ -102,11 +102,12 @@ class _ScannerQrCode extends State<ScannerQrCode> {
       for (int i = 0; i < value.documents.length; i++) {
         print(value.documents[i].documentID);
         print(value.documents[i]["alreadyScan"]);
-        if (code == value.documents[i].documentID && value.documents[i]["alreadyScan"] == false) {
+        if (code == value.documents[i].documentID &&
+            value.documents[i]["alreadyScan"] == false) {
           print("DANS LE 1ER IF");
           Firestore.instance
               .collection("club")
-              .document("-LhKMefcBQ5wcJwluZxY")
+              .document("widget.clubId")
               .collection("placesReservees")
               .document(value.documents[i].documentID)
               .setData({"alreadyScan": true}, merge: true);
@@ -114,15 +115,15 @@ class _ScannerQrCode extends State<ScannerQrCode> {
             _maptest = {"code": code, "alreadyScan": false};
           });
           break;
-
-        }else if(code == value.documents[i].documentID && value.documents[i]["alreadyScan"] == true){
+        } else if (code == value.documents[i].documentID &&
+            value.documents[i]["alreadyScan"] == true) {
           print("DANS LE 2ER IF");
           setState(() {
             _maptest = {"code": code, "alreadyScan": true};
           });
 
           break;
-        }else{
+        } else {
           print("DANS LE 13ER IF");
           setState(() {
             _maptest = {};
@@ -133,8 +134,6 @@ class _ScannerQrCode extends State<ScannerQrCode> {
         _isScanning = false;
       });
     });
-
-
   }
 
   String _qrInfo = 'Scan un code';
@@ -186,17 +185,17 @@ class _ScannerQrCode extends State<ScannerQrCode> {
   }
 
   Widget checkPlace() {
-    if(_isScanning){
+    if (_isScanning) {
       return Text("...");
     }
+    print('MAPTEST PRINT');
     print(_maptest);
-    if(_maptest["alreadyScan"] == true ){
-      return Text("C'est PAS  bon DEJA SCAN! ");
-    }else if(_maptest["alreadyScan"] == false){
-      return Text("C'est bon bienvenu!");
-
-    }else{
-      return Text("Pas de placeeeeeeeeeeee");
+    if (_maptest["alreadyScan"] == true) {
+      return Text("C'est PAS bon DEJA SCAN! ");
+    } else if (_maptest["alreadyScan"] == false) {
+      return Text("C'est bon bienvenue !");
+    } else {
+      return Text("Pas de place - QR code invalide");
     }
   }
 
@@ -218,7 +217,7 @@ class _ScannerQrCode extends State<ScannerQrCode> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scanner Qr code'),
+        title: Text(widget.clubName + ' scanner'),
       ),
       body: _camState
           ? Center(
@@ -265,7 +264,7 @@ class _ScannerQrCode extends State<ScannerQrCode> {
                                           style: TextStyle(fontSize: 20),
                                         )
                                       : Text(
-                                          _listePlace[1]['price'].toString(),
+                                          _listePlace[0]['price'].toString(),
                                           style: TextStyle(fontSize: 20),
                                         ),
                                 ],
@@ -285,7 +284,6 @@ class _ScannerQrCode extends State<ScannerQrCode> {
           child: Icon(Icons.scanner),
         ),
       ),
-      drawer: MyDrawer(currentPage: 'scanner', userId: null)
     );
   }
 }
