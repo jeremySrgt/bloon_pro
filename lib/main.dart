@@ -6,6 +6,7 @@ import 'adminProfile.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'myClubs.dart';
+import 'package:bloon_pro/scanner/scannerQrCode.dart';
 
 void main() {
   runApp(new MyApp());
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           '/': (BuildContext context) => new RootPage(auth: new Auth()),
           '/adminProfil' : (BuildContext context) => AdminProfil(),
           '/myClubs' : (BuildContext context) => MyClubs(),
+          '/scannerQrCode' : (BuildContext context) => ScannerQrCode()
         },
       ),
       providers: <SingleChildCloneableWidget>[

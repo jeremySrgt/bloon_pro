@@ -219,6 +219,35 @@ class _MyDrawerState extends State<MyDrawer> {
               },
             ),
           ),
+          Container(
+            decoration: currentDrawer == 3
+                ? BoxDecoration(
+                color: Color(0xFFebdffc),
+                borderRadius: BorderRadius.circular(15.0))
+                : BoxDecoration(),
+            child: ListTile(
+              leading: Icon(
+                FontAwesomeIcons.qrcode,
+                color: currentDrawer == 3
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey,
+              ),
+              title: Text(
+                "Scanner QR",
+                style: currentDrawer == 3
+                    ? TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Theme.of(context).primaryColor)
+                    : TextStyle(fontWeight: FontWeight.normal, fontSize: 18.0),
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                if (widget.currentPage == "scanner") return;
+
+                Provider.of<DrawerStateInfo>(context).setCurrentDrawer(3);
+
+                Navigator.pushReplacementNamed(context, "/scannerQrCode");
+              },
+            ),
+          ),
         ],
       ),
     );
