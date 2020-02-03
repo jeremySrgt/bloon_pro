@@ -1,6 +1,6 @@
 # bloon_pro
 
-Declinaison de l&#x27;application Bloon pour les professionnelles
+Declinaison de l&#x27;application Bloon pour les professionnelles !
 
 ## Getting Started
 
